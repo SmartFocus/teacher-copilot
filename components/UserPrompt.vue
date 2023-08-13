@@ -1,9 +1,9 @@
 <template>
     <div class="user-prompt">
-        <QuestionComp class="mb-4" />
-        <StudentAnswer class="mb-4"/>
+        <QuestionComp :value="question" @update="handleUpdateQuestion"  class="mb-4" />
+        <StudentAnswer :value="studentAnswer"  @update="handleUpdateStudentAnswer" class="mb-4"/>
         <div class="submit text-right">
-            <el-button type="primary" @click="hnadleSubmit">提交</el-button>
+            <el-button type="primary" @click="handleSubmit">提交</el-button>
         </div>
     </div>
 </template>
@@ -11,8 +11,67 @@
 <!-- script setup -->
 <script setup>
 import { useLLM } from '~/hooks/useLLM';
-const handleSubmit = () => {
-    console.log('submit');
+import { ref } from 'vue';
+const question = ref('');
+const studentAnswer = ref('');
+const handleUpdateQuestion = (val) => {
+    question.value = val;
+}
+
+const handleUpdateStudentAnswer = (val) => {
+    studentAnswer.value = val;
+}
+
+const responseText = ref('');
+const emit = defineEmits(['getResponse']);
+
+// 获取props中的clearAnswer
+const props = defineProps({
+    clearAnswer: Function
+})
+
+
+const handleSubmit = async () => {
+    // clearAnswer();
+    props.clearAnswer && props.clearAnswer();
+
+    const messages = [];
+    if(question.value.length === 0){
+        return
+    }
+    if(studentAnswer.value.length === 0){
+        return
+    }
+
+    // LLM输入为messages
+    messages.push({
+        role: 'user',
+        content: question.value
+    })
+
+    messages.push({
+        role: 'user',
+        content: studentAnswer.value
+    })
+
+    const { body } = await fetch('/api/fetchLLM', {
+        method: 'POST',
+        body: JSON.stringify({
+            messages
+        })
+    });
+
+
+    useLLM({
+        onChunk: (val)=>{
+            responseText.value += val.data;
+            emit('getResponse', responseText.value);
+        },
+        onReady: (val)=>{
+        },
+        stream: body
+    });
+
 }
 </script>
 

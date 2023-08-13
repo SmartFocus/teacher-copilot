@@ -3,6 +3,7 @@ export const useLLM = ({
   onReady = () => {},
   stream,
 }) => {
+  const data = ref("");
   resolveStream({
     data,
     onChunk,
@@ -42,4 +43,4 @@ const resolveStream = async ({
     }
   
     onReady({ data: data.value });
-  };
+};
