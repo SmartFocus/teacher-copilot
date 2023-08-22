@@ -4,7 +4,7 @@ const config = useRuntimeConfig();
 
 const configuration = new Configuration({
   basePath: 'https://mrslimslim.site/v1',
-  apiKey: '',
+  apiKey: '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',
 });
 
 console.log('config', config.apiKey, config.basePath);

@@ -11,6 +11,7 @@
 <!-- script setup -->
 <script setup>
 import { useLLM } from '~/hooks/useLLM';
+import { systemPrompt } from '../config'
 import { ref } from 'vue';
 const question = ref('');
 const studentAnswer = ref('');
@@ -43,15 +44,20 @@ const handleSubmit = async () => {
         return
     }
 
+    messages.push({
+        role: 'system',
+        content: systemPrompt
+    })
+
     // LLM输入为messages
     messages.push({
         role: 'user',
-        content: question.value
+        content: `%question ${question.value}`
     })
 
     messages.push({
         role: 'user',
-        content: studentAnswer.value
+        content:`%answer ${studentAnswer.value}` 
     })
 
     const { body } = await fetch('/api/fetchLLM', {

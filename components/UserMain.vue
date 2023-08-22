@@ -7,7 +7,7 @@
 
 <script setup>
 // 更新CopliotAnswer 中text的方法为updateText
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 // 获取CopliotAnswer组件的ref
 const copliot = ref(null);
