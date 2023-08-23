@@ -7,8 +7,6 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-console.log('config', config.apiKey, config.basePath);
-
 const openai = new OpenAIApi(configuration);
 
 export default defineEventHandler(async (event) => {
