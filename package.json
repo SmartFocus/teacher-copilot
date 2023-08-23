@@ -23,6 +23,6 @@
     "sass": "^1.64.2"
   },
   "resolutions": {
-    "nitropack": "2.5.2"
+    "nitropack": "npm:nitropack-edge"
   }
 }
