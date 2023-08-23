@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "ai": "^2.2.8",
-    "langchain": "^0.0.123",
     "md-editor-v3": "^4.2.2",
     "openai": "^3.3.0",
     "sass": "^1.64.2"

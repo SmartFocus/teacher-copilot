@@ -24,6 +24,7 @@ const resolveStream = async ({
     stream,
   }) => {
     const reader = stream.pipeThrough(new TextDecoderStream()).getReader();
+    let buffer = "";
     while (true) {
       const stream = await reader.read();
       if (stream.done) break;
@@ -35,7 +36,6 @@ const resolveStream = async ({
       //   .map((c) => JSON.parse(c));
 
 
-      let buffer = "";
   
       for (let chunk of stream?.value) {
         buffer += chunk;
