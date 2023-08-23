@@ -10,8 +10,8 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export default defineEventHandler(async (event) => {
-  const { messages } = await readBody(event);
-  console.log('messages', messages);
+  const data = await readBody(event);
+  const { messages } = JSON.parse(data);
 
   const response = await openai.createChatCompletion(
     {

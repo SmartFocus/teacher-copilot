@@ -23,7 +23,6 @@
     "sass": "^1.64.2"
   },
   "resolutions": {
-    "h3": "1.8.0",
     "nitropack": "2.5.2"
   }
 }

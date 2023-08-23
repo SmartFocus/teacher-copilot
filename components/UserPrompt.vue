@@ -60,6 +60,8 @@ const handleSubmit = async () => {
         content:`%answer ${studentAnswer.value}` 
     })
 
+    console.log('messages', messages);
+
     const { body } = await fetch('/api/fetchLLM', {
         method: 'POST',
         body: JSON.stringify({
